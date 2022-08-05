@@ -40,3 +40,4 @@ Client {
   }
 }
 ```
+[] small talk 준비하기 
