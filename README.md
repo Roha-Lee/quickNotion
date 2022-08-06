@@ -42,7 +42,7 @@ Client {
 ```
 
 ## Todo
-[] js로 notion에 값 추가해보기 
-[] small talk 준비하기 
-[] alfred app 만들어보기 
+- [] js로 notion에 값 추가해보기 
+- [] small talk 준비하기 
+- [] alfred app 만들어보기 
 
