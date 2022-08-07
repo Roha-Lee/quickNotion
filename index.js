@@ -58,15 +58,101 @@ console.log("[Modify Pages]");
     });
 })();
 
-console.log("[Modify specific Pages - #1]");
+console.log("[Modify specific Pages]");
 (async () => {
     const databaseId = env.DB_KEY;
     const response = await notion.databases.query({
         database_id: databaseId,
     });
-    
+
     // roha-multiselect에 test3이 포함되어있는 것들을 변경 
-    response.results.forEach(item => {
-        console.log(item.properties["roha-count"].number);
-    });    
+    const target = "test3";
+    const modifies = Promise.all(
+        response.results
+        .filter(item => {
+            console.log(item);
+            return !item.properties["roha-multiselect"].multi_select.every(ms => ms.name !== target);
+        })
+        .map(item => {
+            console.log(item.properties["roha-select"].select);
+            notion.pages.update({
+                page_id: item.id,
+                properties: {
+                    "roha-text": {
+                        rich_text : [
+                            {
+                                text: {
+                                    content: "INITIAL",
+                                },
+                            }
+                        ]
+                    },
+                    "roha-select": {
+                        select: {
+                            name: "new test5-2",
+                        }
+                    },
+                    "roha-check": {
+                        checkbox: true,
+                    }
+                }
+            })
+        })
+    )
 })();
+
+console.log("[Add new page]");
+
+(async () => {
+    const response = await notion.pages.create({
+        parent: {
+            type: "database_id",
+            database_id: env.DB_KEY,
+        },
+        properties: {
+            name: {
+                title: [
+                    {
+                        text: {
+                            content: "NEW ITEM ADDED",
+                        }
+                    }
+                ]
+            },
+            "roha-check": {
+                checkbox: true,
+            },
+            "roha-select": {
+                select: {
+                    name: "new item",
+                }
+            },
+            "roha-text": {
+                rich_text : [
+                    {
+                        text: {
+                            content: "INITIAL",
+                        },
+                    }
+                ]
+            },
+            "roha-multiselect": {
+                multi_select : [
+                    {
+                        name: "test1",
+                    },
+                    {
+                        name: "test2",
+                    },
+                    {
+                        name: "test4",
+                    },
+                ]
+            },
+            "roha-count": {
+                number: 0,
+            }
+        },
+    });
+})();
+
