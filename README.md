@@ -40,3 +40,6 @@ Client {
   }
 }
 ```
+
+- database를 가져오면 page들의 list를 얻어올 수 있다. 
+- 
