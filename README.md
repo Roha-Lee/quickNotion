@@ -41,8 +41,9 @@ Client {
 }
 ```
 
+- database를 가져오면 page들의 list를 얻어올 수 있다. 
+
 ## Todo
-- [] js로 notion에 값 추가해보기 
-- [] small talk 준비하기 
-- [] alfred app 만들어보기 
+- [x] js로 notion에 값 추가해보기 
+- [ ] alfred app 만들어보기 
 
